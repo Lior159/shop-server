@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const UserRouter = require("./routes/auth");
+const flash = require("connect-flash");
 
 const MONGODB_URI =
   "mongodb+srv://lior:lior159@cluster1.wgsdzck.mongodb.net/shop-mern?retryWrites=true&w=majority";
@@ -16,6 +17,8 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Request-Method", "GET, POST");
   next();
 });
+
+app.use(flash());
 
 app.use(UserRouter);
 
