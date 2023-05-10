@@ -6,7 +6,7 @@ const authController = require("../controllers/auth");
 const router = express.Router();
 
 router.post(
-  "/users",
+  "/sign-up",
   [
     body(
       ["firstName", "lastName", "password", "passwordConfirm", "email"],
@@ -26,9 +26,19 @@ router.post(
       return true;
     }),
   ],
-  authController.createUser
+  authController.signUp
 );
 
-router.get("/users/:userId", authController.fetchUser);
+router.post(
+  "/sign-in",
+  [
+    body(["password", "email"], "Empty fields are not allowd")
+      .trim()
+      .not()
+      .isEmpty(),
+    body("email", "Invalid email adress").isEmail(),
+  ],
+  authController.signIn
+);
 
 module.exports = router;
