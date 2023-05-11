@@ -25,7 +25,7 @@ app.use(UserRouter);
 mongoose
   .connect(MONGODB_URI)
   .then(() => {
-    app.listen(3000);
+    app.listen(8080);
     console.log("Connected");
   })
   .catch((err) => console.log(err.message));
