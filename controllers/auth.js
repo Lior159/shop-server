@@ -2,10 +2,10 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
 
+///POST - SIGN-IN
 exports.signIn = (req, res) => {
   //gets validation errors
   const errors = validationResult(req).array();
-  console.log(errors);
 
   //if there's some validation errors
   if (errors.length > 0) {
@@ -44,10 +44,17 @@ exports.signIn = (req, res) => {
     });
 };
 
+///POST - SIGN-UP
 exports.signUp = async (req, res) => {
   const errors = validationResult(req).array();
+
   if (errors.length > 0) {
-    return res.status(400).json({ message: errors[0].msg });
+    return res.status(400).json({
+      message: "Invalid field",
+      errors: errors.map((err) => {
+        return { field: err.path, message: err.msg };
+      }),
+    });
   }
 
   const { firstName, lastName, email, password } = req.body;
