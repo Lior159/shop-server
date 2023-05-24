@@ -10,13 +10,13 @@ router.post(
   [
     body(
       ["firstName", "lastName", "password", "passwordConfirm", "email"],
-      "Empty fields are not allowd"
+      "Empty fields are not allowed"
     )
       .trim()
       .not()
       .isEmpty(),
     body("email", "Invalid email adress").isEmail(),
-    body("password", "password allowd only 8 characters - asci")
+    body("password", "password must be at least 8 characters (asci)")
       .isAscii()
       .isLength({ min: 8 }),
     body("passwordConfirm").custom((value, { req }) => {

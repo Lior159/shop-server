@@ -1,11 +1,10 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const UserRouter = require("./routes/auth");
-const flash = require("connect-flash");
+const authRouter = require("./routes/auth");
 
-const MONGODB_URI =
-  "mongodb+srv://lior:lior159@cluster1.wgsdzck.mongodb.net/shop-mern?retryWrites=true&w=majority";
+const MONGODB_URI = process.env.CONNECTION_STRING;
 
 const app = express();
 
@@ -18,9 +17,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(flash());
-
-app.use(UserRouter);
+app.use(authRouter);
 
 mongoose
   .connect(MONGODB_URI)
